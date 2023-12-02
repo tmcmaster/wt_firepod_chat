@@ -2,6 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:wt_app_scaffold/app_platform/auth/app_scaffold_authentication_store.dart';
 import 'package:wt_app_scaffold/app_platform/auth/app_scaffold_user.dart';
 import 'package:wt_firepod_chat/src/model/models.dart';
+import 'package:wt_firepod_chat/src/providers/firepod_chat_providers.dart';
 import 'package:wt_firepod_chat/src/service/client/firebase_message_client.dart';
 import 'package:wt_firepod_chat/src/service/ecompod_message_service.dart';
 import 'package:wt_firepod_chat/src/transform/chat_user_transform.dart';
@@ -77,5 +78,14 @@ class FirebaseMessageService with FirepodChatMessageService {
           email: user.email,
         );
     return userTransform.decode(chatUser);
+  }
+
+  Future<void> saveToFirestore(AppScaffoldUser userDetails) async {
+    final user = ref.read(AppScaffoldAuthenticationStore.user);
+    await ref
+        .read(FirepodChatProviders.firestore)
+        .collection('users')
+        .doc(user.id)
+        .set(userDetails.toJson());
   }
 }
