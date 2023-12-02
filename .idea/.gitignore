@@ -1,0 +1,16 @@
+# Default ignored files
+/shelf/
+/workspace.xml
+.flutter-plugins
+.flutter-plugins-dependencies
+.dart_tools
+.idea
+hold
+junk
+#*.g.dart
+#*.freezed.dart
+#*.mocks.dart
+.DS_Store
+*.iml
+*.ipr
+*.iws
